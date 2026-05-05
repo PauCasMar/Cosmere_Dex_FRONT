@@ -1,0 +1,37 @@
+:host {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999; // Asegura que esté por encima del contenido
+  display: block;
+  background-color: #1a1e24;
+}
+.cosmere-menu {
+  border-top: 1px solid #2c323a;
+  --background: #1a1e24;
+  height: 65px;
+  border-top: 1px solid var(--ion-color-primary);
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
+
+  ion-tab-button {
+    --color: #a0a0a0;
+    --color-selected: var(--ion-color-primary); // El dorado #d4af37
+    transition: all 0.3s ease;
+  }
+
+  .sparkle-badge {
+    position: absolute;
+    top: 8px;
+    right: 25%;
+    font-size: 12px;
+    color: var(--ion-color-primary);
+    opacity: 0.8;
+  }
+}
+
+.tab-selected {
+  ion-icon, ion-label {
+    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4));
+  }
+}

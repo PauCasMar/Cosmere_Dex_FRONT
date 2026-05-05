@@ -1,0 +1,110 @@
+<ion-header>
+  <app-cabecera titulo="Detalle del Libro"></app-cabecera>
+</ion-header>
+
+<ion-content>
+
+  <!-- Loading -->
+  <div class="loading-container" *ngIf="cargando">
+    <ion-spinner name="crescent" color="warning"></ion-spinner>
+  </div>
+
+  <div *ngIf="!cargando && libro">
+
+    <!-- Portada + botón volver -->
+    <div class="portada-container">
+      <button class="btn-volver" (click)="volver()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </button>
+      <img
+        class="portada-img"
+        [src]="libro.portada"
+        [alt]="libro.titulo"
+        (error)="onImageError($event)" />
+    </div>
+
+    <!-- Info principal -->
+    <div class="info-container">
+      <h1 class="titulo">{{ libro.titulo }}</h1>
+      <p class="saga">Saga: {{ libro.saga }}</p>
+      <p class="anyo">Año: {{ libro.anio_publicacion }}</p>
+    </div>
+
+    <!-- Sinopsis -->
+    <div class="seccion">
+      <h2 class="seccion-titulo">
+        <ion-icon name="book-outline"></ion-icon>
+        SINOPSIS
+      </h2>
+      <p class="sinopsis" [class.expandida]="sinopsisExpandida">
+        {{ libro.sinopsis }}
+      </p>
+    </div>
+
+    <!-- Personajes -->
+   <div class="seccion" *ngIf="libro?.personajes?.length">
+      <h2 class="seccion-titulo">
+        <ion-icon name="people-outline"></ion-icon>
+        PERSONAJES CLAVE
+      </h2>
+      <div class="personajes-lista">
+        <div
+          class="personaje-item"
+          *ngFor="let personaje of libro?.personajes"
+          (click)="verPersonaje(personaje.id_personaje)">
+          <div class="personaje-avatar">
+            <img
+              *ngIf="personaje.imagen_url"
+              [src]="personaje.imagen_url"
+              [alt]="personaje.nombre" />
+            <ion-icon
+              *ngIf="!personaje.imagen_url"
+              name="person-outline">
+            </ion-icon>
+          </div>
+          <span
+            class="personaje-nombre"
+            [style.color]="getRolColor(personaje.rol)">
+            {{ personaje.nombre }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mundo -->
+    <div class="seccion" *ngIf="libro?.nombre_mundo">
+      <h2 class="seccion-titulo">
+        <ion-icon name="planet-outline"></ion-icon>
+        PLANETA
+      </h2>
+      <div class="mundo-item"
+      (click)="irAMundo(libro!.id_mundo!)">
+        <ion-icon name="globe-outline"></ion-icon>
+        <span>{{ libro.nombre_mundo }}</span>
+        <ion-icon name="chevron-forward-outline" class="arrow"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Datos adicionales -->
+    <div class="seccion">
+      <h2 class="seccion-titulo">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        DATOS
+      </h2>
+      <div class="datos-grid">
+        <div class="dato-item">
+          <ion-icon name="reader-outline"></ion-icon>
+          <span class="dato-label">Páginas</span>
+          <span class="dato-valor">{{ libro.numero_paginas }}</span>
+        </div>
+        <div class="dato-item">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <span class="dato-label">Publicación</span>
+          <span class="dato-valor">{{ libro.anio_publicacion }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+ <div style="height: 80px;"></div>
+</ion-content>

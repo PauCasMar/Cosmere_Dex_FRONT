@@ -1,0 +1,95 @@
+<ion-header>
+  <app-cabecera [titulo]="'Búsqueda'"></app-cabecera>
+</ion-header>
+
+<ion-content>
+
+  <div class="resumen" *ngIf="termino">
+    <p>
+      Resultados para <strong>"{{ termino }}"</strong>
+      <span *ngIf="!cargando">— {{ totalResultados() }} encontrados</span>
+    </p>
+  </div>
+
+  <div class="loading-container" *ngIf="cargando">
+    <ion-spinner name="crescent" color="warning"></ion-spinner>
+  </div>
+
+  <div *ngIf="!cargando">
+
+    <!-- Sin resultados -->
+    <div class="sin-resultados" *ngIf="totalResultados() === 0 && termino">
+      <ion-icon name="search-outline"></ion-icon>
+      <p>Sin resultados para "{{ termino }}"</p>
+    </div>
+
+    <!-- Libros -->
+    <div class="seccion" *ngIf="resultados.libros.length">
+      <h2 class="seccion-titulo">
+        <ion-icon name="library-outline"></ion-icon>
+        LIBROS ({{ resultados.libros.length }})
+      </h2>
+      <div
+        class="item-card"
+        *ngFor="let libro of resultados.libros"
+        (click)="irALibro(libro.id_libro)">
+        <div class="item-img libro-img">
+          <img *ngIf="libro.portada" [src]="libro.portada" [alt]="libro.titulo" (error)="onImageError($event)" />
+          <ion-icon *ngIf="!libro.portada" name="book-outline"></ion-icon>
+        </div>
+        <div class="item-info">
+          <span class="item-titulo">{{ libro.titulo }}</span>
+          <span class="item-meta" *ngIf="libro.anio_publicacion">{{ libro.anio_publicacion }}</span>
+        </div>
+        <ion-icon name="chevron-forward-outline" class="arrow"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Personajes -->
+    <div class="seccion" *ngIf="resultados.personajes.length">
+      <h2 class="seccion-titulo">
+        <ion-icon name="people-outline"></ion-icon>
+        PERSONAJES ({{ resultados.personajes.length }})
+      </h2>
+      <div
+        class="item-card"
+        *ngFor="let p of resultados.personajes"
+        (click)="irAPersonaje(p.id_personaje)">
+        <div class="item-img personaje-img" [style.border-color]="getRolColor(p.rol) + '88'">
+          <img *ngIf="p.imagen_url" [src]="p.imagen_url" [alt]="p.nombre" (error)="onImageError($event)" />
+          <ion-icon *ngIf="!p.imagen_url" name="person-outline"></ion-icon>
+        </div>
+        <div class="item-info">
+          <span class="item-titulo" [style.color]="getRolColor(p.rol)">{{ p.nombre }}</span>
+          <span class="item-meta">{{ p.importancia }}</span>
+        </div>
+        <ion-icon name="chevron-forward-outline" class="arrow"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Mundos -->
+    <div class="seccion" *ngIf="resultados.mundos.length">
+      <h2 class="seccion-titulo">
+        <ion-icon name="planet-outline"></ion-icon>
+        MUNDOS ({{ resultados.mundos.length }})
+      </h2>
+      <div
+        class="item-card"
+        *ngFor="let m of resultados.mundos"
+        (click)="irAMundo(m.id_mundo)">
+        <div class="item-img mundo-img">
+          <img *ngIf="m.imagen_url" [src]="m.imagen_url" [alt]="m.nombre" (error)="onImageError($event)" />
+          <ion-icon *ngIf="!m.imagen_url" name="planet-outline"></ion-icon>
+        </div>
+        <div class="item-info">
+          <span class="item-titulo">{{ m.nombre }}</span>
+          <span class="item-meta" *ngIf="m.descripcion">{{ m.descripcion }}</span>
+        </div>
+        <ion-icon name="chevron-forward-outline" class="arrow"></ion-icon>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="height: 80px;"></div>
+</ion-content>

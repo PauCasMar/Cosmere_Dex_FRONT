@@ -1,0 +1,151 @@
+.cosmere-title {
+  font-family: 'Cinzel', serif; // Asegúrate de importar esta fuente de Google Fonts
+  color: #d4af37;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.cosmere-card {
+  --background: #2f343b;
+  --border-radius: 12px;
+  margin: 10px 15px;
+  border: 1px solid #2c323a;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+
+  ion-thumbnail {
+    --border-radius: 4px;
+    width: 60px;
+    height: 80px;
+  }
+
+  .gold-text {
+    color: #d4af37;
+    font-weight: bold;
+  }
+}
+
+ion-searchbar {
+  --background: #1a1e24;
+  --color: white;
+  --placeholder-color: #a0a0a0;
+  --icon-color: #d4af37;
+}
+
+ion-content {
+  --background: #1a1a2e;
+}
+
+.search-container {
+  padding: 12px 16px 4px;
+
+  .cosmere-search {
+    --background: #2a2a3e;
+    --color: #f0e6c8;
+    --placeholder-color: #8a7a5a;
+    --icon-color: #c9a84c;
+    --border-radius: 20px;
+    --box-shadow: 0 0 0 1px #c9a84c44;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.libros-lista {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.libro-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #282841;
+  border: 1px solid #c9a84c55;
+  border-radius: 14px;
+  padding: 12px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s;
+
+    &:hover {
+    background: #1a1a2e;
+    border-color: #c9a84c99;
+  }
+
+  &:active {
+    transform: scale(0.98);
+    border-color: #c9a84c;
+  }
+
+  .libro-portada {
+    flex-shrink: 0;
+    width: 65px;
+    height: 90px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #c9a84c44;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .libro-info {
+    flex: 1;
+    min-width: 0; // evita overflow de texto largo
+
+    .libro-titulo {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #c9a84c;
+      margin: 0 0 4px;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .libro-saga {
+      font-size: 0.78rem;
+      color: #a09070;
+      margin: 0 0 8px;
+      font-style: italic;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .libro-meta {
+      display: flex;
+      gap: 12px;
+
+      span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.78rem;
+        color: #a09070;
+
+        ion-icon {
+          font-size: 0.85rem;
+          color: #c9a84c88;
+        }
+      }
+    }
+  }
+
+  .arrow-icon {
+    color: #c9a84c44;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+}

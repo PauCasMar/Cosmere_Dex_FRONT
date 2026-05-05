@@ -1,0 +1,82 @@
+<ion-header>
+  <app-cabecera titulo="Personajes"></app-cabecera>
+</ion-header>
+
+<ion-content>
+
+  <div class="search-container">
+    <ion-searchbar
+      placeholder="Buscar personaje..."
+      class="cosmere-search"
+      (ionInput)="buscar($event)">
+    </ion-searchbar>
+  </div>
+
+  <div class="filtros-container">
+    <button class="filtro-btn" [class.activo]="filtroRol === 'todos'"   (click)="cambiarFiltroRol('todos')">Todos</button>
+    <button class="filtro-btn" [class.activo]="filtroRol === 'heroe'"   (click)="cambiarFiltroRol('heroe')">Héroes</button>
+    <button class="filtro-btn" [class.activo]="filtroRol === 'villano'" (click)="cambiarFiltroRol('villano')">Villanos</button>
+    <button class="filtro-btn" [class.activo]="filtroRol === 'neutral'" (click)="cambiarFiltroRol('neutral')">Neutrales</button>
+  </div>
+
+  <div class="loading-container" *ngIf="cargando">
+    <ion-spinner name="crescent" color="warning"></ion-spinner>
+  </div>
+
+  <div class="personajes-lista" *ngIf="!cargando">
+    <div
+      class="personaje-card"
+      *ngFor="let personaje of personajesFiltrados"
+      (click)="irADetalle(personaje.id_personaje)">
+
+      <div
+        class="personaje-avatar"
+        [style.border-color]="getRolColor(personaje.rol) + '88'">
+        <img
+          *ngIf="personaje.imagen_url"
+          [src]="personaje.imagen_url"
+          [alt]="personaje.nombre"
+          (error)="onImageError($event)" />
+        <ion-icon
+          *ngIf="!personaje.imagen_url"
+          name="person-outline">
+        </ion-icon>
+      </div>
+
+      <div class="personaje-info">
+        <h2 class="personaje-nombre" [style.color]="getRolColor(personaje.rol)">
+          {{ personaje.nombre }}
+        </h2>
+        <p class="personaje-libro" *ngIf="personaje.libro_titulo">
+          {{ personaje.libro_titulo }}
+        </p>
+        <div class="personaje-meta">
+          <span class="meta-importancia">
+            <ion-icon [name]="getImportanciaIcon(personaje.importancia)"></ion-icon>
+            {{ getImportanciaLabel(personaje.importancia) }}
+          </span>
+          <span class="meta-genero">
+            <ion-icon [name]="personaje.genero === 'mujer' ? 'female-outline' : 'male-outline'"></ion-icon>
+            {{ personaje.genero }}
+          </span>
+        </div>
+      </div>
+
+      <span
+        class="rol-badge"
+        [style.background-color]="getRolColor(personaje.rol) + '33'"
+        [style.color]="getRolColor(personaje.rol)">
+        {{ getRolLabel(personaje.rol) }}
+      </span>
+
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+
+    <div class="sin-resultados" *ngIf="personajesFiltrados.length === 0">
+      <ion-icon name="search-outline"></ion-icon>
+      <p>No se encontraron personajes</p>
+    </div>
+  </div>
+
+  <div style="height: 80px;"></div>
+</ion-content>

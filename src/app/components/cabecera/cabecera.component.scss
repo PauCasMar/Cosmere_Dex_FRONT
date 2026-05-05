@@ -1,0 +1,40 @@
+.cosmere-header-container {
+  background: #0f1216;
+  padding-top: 10px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2); // Línea sutil dorada
+}
+
+.app-title {
+  font-family: 'Cinzel', serif; // Fuente estilo fantasía
+  color: #d4af37;
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.header-sparkle {
+  color: #d4af37;
+  margin-right: 15px;
+  font-size: 1.2rem;
+  animation: pulse 2s infinite;
+}
+
+.cosmere-searchbar {
+  --background: #1a1e24;
+  --color: #e0e0e0;
+  --placeholder-color: #8a8a8a;
+  --icon-color: #d4af37;
+  --border-radius: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 8px;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.5); opacity: 0.8; }
+  50% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(0.5); opacity: 0.8; }
+}

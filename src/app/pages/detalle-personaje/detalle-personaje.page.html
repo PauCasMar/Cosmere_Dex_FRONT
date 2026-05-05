@@ -1,0 +1,136 @@
+<ion-header>
+  <app-cabecera titulo="Detalle del Personaje"></app-cabecera>
+</ion-header>
+
+<ion-content>
+
+  <div class="loading-container" *ngIf="cargando">
+    <ion-spinner name="crescent" color="warning"></ion-spinner>
+  </div>
+
+  <div *ngIf="!cargando && personaje">
+
+    <!-- Cabecera -->
+    <div class="cabecera-container">
+      <button class="btn-volver" (click)="volver()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </button>
+
+<div class="imagen-personaje" [style.border-color]="getRolColor(personaje.rol)">
+  <img
+    *ngIf="personaje.imagen_url"
+    [src]="personaje.imagen_url"
+    [alt]="personaje.nombre"
+    (error)="onImageError($event)" />
+  <ion-icon
+    *ngIf="!personaje.imagen_url"
+    name="person-outline">
+  </ion-icon>
+</div>
+
+      <h1 class="nombre" [style.color]="getRolColor(personaje.rol)">
+        {{ personaje.nombre }}
+      </h1>
+
+      <span
+        class="rol-badge"
+        [style.background-color]="getRolColor(personaje.rol) + '33'"
+        [style.color]="getRolColor(personaje.rol)"
+        [style.border-color]="getRolColor(personaje.rol)">
+        {{ getRolLabel(personaje.rol) }}
+      </span>
+
+      <p class="libro-principal" *ngIf="personaje.libro_principal_titulo">
+        Aparece originalmente en <em>{{ personaje.libro_principal_titulo }}</em>
+      </p>
+    </div>
+
+    <!-- Datos -->
+    <div class="seccion">
+      <h2 class="seccion-titulo">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        DATOS
+      </h2>
+      <div class="datos-grid">
+        <div class="dato-item">
+          <ion-icon [name]="personaje.genero === 'mujer' ? 'female-outline' : 'male-outline'"></ion-icon>
+          <span class="dato-label">Género</span>
+          <span class="dato-valor">{{ personaje.genero }}</span>
+        </div>
+        <div class="dato-item">
+          <ion-icon name="star-outline"></ion-icon>
+          <span class="dato-label">Importancia</span>
+          <span class="dato-valor">{{ getImportanciaLabel(personaje.importancia) }}</span>
+        </div>
+        <div class="dato-item">
+          <ion-icon name="shield-outline"></ion-icon>
+          <span class="dato-label">Rol</span>
+          <span class="dato-valor">{{ getRolLabel(personaje.rol) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Habilidades -->
+    <div class="seccion" *ngIf="personaje.habilidades?.length">
+      <h2 class="seccion-titulo">
+        <ion-icon name="flash-outline"></ion-icon>
+        HABILIDADES
+      </h2>
+      <div class="habilidades-lista">
+        <div class="habilidad-item" *ngFor="let h of personaje.habilidades">
+          <div class="habilidad-header">
+            <ion-icon name="sparkles-outline"></ion-icon>
+            <span class="habilidad-nombre">{{ h.nombre }}</span>
+            <span class="habilidad-tipo" *ngIf="h.tipo">{{ h.tipo }}</span>
+          </div>
+          <p class="habilidad-desc" *ngIf="h.descripcion">{{ h.descripcion }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mundos -->
+<div class="seccion" *ngIf="personaje.mundos?.length">
+  <h2 class="seccion-titulo">
+    <ion-icon name="planet-outline"></ion-icon>
+    MUNDOS
+  </h2>
+  <div class="mundos-lista">
+    <div
+      class="mundo-item"
+      *ngFor="let m of personaje.mundos"
+      (click)="irAMundo(m.id_mundo)">
+      <ion-icon name="globe-outline"></ion-icon>
+      <div class="mundo-info">
+        <span class="mundo-nombre">{{ m.nombre }}</span>
+        <span class="mundo-desc" *ngIf="m.descripcion">{{ m.descripcion }}</span>
+      </div>
+      <ion-icon name="chevron-forward-outline" class="arrow"></ion-icon>
+    </div>
+  </div>
+</div>
+
+    <!-- Libros donde aparece -->
+    <div class="seccion" *ngIf="personaje.libros?.length">
+      <h2 class="seccion-titulo">
+        <ion-icon name="library-outline"></ion-icon>
+        APARECE EN
+      </h2>
+      <div class="libros-lista">
+        <div
+          class="libro-item"
+          *ngFor="let libro of personaje.libros"
+          (click)="irALibro(libro.id_libro)">
+          <ion-icon name="book-outline" class="libro-icon"></ion-icon>
+          <div class="libro-info">
+            <span class="libro-titulo">{{ libro.titulo }}</span>
+            <span class="libro-anio" *ngIf="libro.anio_publicacion">{{ libro.anio_publicacion }}</span>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="arrow"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="height: 80px;"></div>
+</ion-content>

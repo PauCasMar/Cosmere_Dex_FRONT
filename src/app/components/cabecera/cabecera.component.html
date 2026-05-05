@@ -1,0 +1,20 @@
+<ion-header class="ion-no-border cosmere-header-container">
+  <ion-toolbar color="transparent">
+    <ion-title class="app-title">
+      {{ titulo }}
+    </ion-title>
+    <ion-buttons slot="end" (click)="onIconClick()">
+      <ion-icon name="sparkles" class="header-sparkle"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar color="transparent">
+    <ion-searchbar 
+      mode="ios" 
+      placeholder="Buscar en el Reino Cognitivo..." 
+      debounce="500"
+      (ionInput)="buscar($event)"
+      class="cosmere-searchbar">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>

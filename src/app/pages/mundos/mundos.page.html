@@ -1,0 +1,41 @@
+<ion-header>
+  <app-cabecera titulo="Mundos"></app-cabecera>
+</ion-header>
+
+<ion-content>
+
+  <div class="loading-container" *ngIf="cargando">
+    <ion-spinner name="crescent" color="warning"></ion-spinner>
+  </div>
+
+  <div class="mundos-lista" *ngIf="!cargando">
+    <div
+      class="mundo-card"
+      *ngFor="let mundo of mundos"
+      (click)="irADetalle(mundo.id_mundo)">
+
+      <div class="mundo-imagen">
+  <img
+    *ngIf="mundo.imagen_url"
+    [src]="mundo.imagen_url"
+    [alt]="mundo.nombre" />
+  <ion-icon
+    *ngIf="!mundo.imagen_url"
+    name="planet-outline">
+  </ion-icon>
+</div>
+
+      <div class="mundo-info">
+        <h2 class="mundo-nombre">{{ mundo.nombre }}</h2>
+        <p class="mundo-descripcion" *ngIf="mundo.descripcion">
+          {{ mundo.descripcion }}
+        </p>
+      </div>
+
+      <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+  </div>
+
+  <div style="height: 80px;"></div>
+</ion-content>

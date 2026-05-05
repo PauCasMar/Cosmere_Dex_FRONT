@@ -1,0 +1,46 @@
+<ion-header>
+  <app-cabecera titulo="Libros"></app-cabecera>
+</ion-header>
+
+<ion-content>
+
+  <div class="loading-container" *ngIf="cargando">
+    <ion-spinner name="crescent" color="warning"></ion-spinner>
+  </div>
+
+  <div class="libros-lista" *ngIf="!cargando">
+    <div
+      class="libro-card"
+      *ngFor="let libro of libros"
+      (click)="irADetalle(libro.id_libro)">
+
+      <!-- Portada con fallback si no carga -->
+      <div class="libro-portada">
+        <img
+          [src]="libro.portada"
+          [alt]="libro.titulo"
+          (error)="onImageError($event)" />
+      </div>
+
+      <div class="libro-info">
+        <h2 class="libro-titulo">{{ libro.titulo }}</h2>
+        <p class="libro-saga">{{ libro.saga }}</p>
+        <div class="libro-meta">
+          <span>
+            <ion-icon name="calendar-outline"></ion-icon>
+            {{ libro.anio_publicacion }}
+          </span>
+          <span>
+            <ion-icon name="reader-outline"></ion-icon>
+            {{ libro.numero_paginas }} pág.
+          </span>
+        </div>
+      </div>
+
+      <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+  </div>
+  <div style="height: 80px;"></div>
+
+</ion-content>

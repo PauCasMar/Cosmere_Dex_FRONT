@@ -68,3 +68,30 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Dependencias
+/node_modules/
+
+# Compilados
+/dist/
+/www/
+/.angular/
+
+# Capacitor / Cordova
+/platforms/
+/plugins/
+/ios/
+/android/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*

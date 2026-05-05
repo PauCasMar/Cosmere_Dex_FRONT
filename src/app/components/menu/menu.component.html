@@ -1,0 +1,25 @@
+<ion-tab-bar class="cosmere-menu">
+  
+  <ion-tab-button 
+    (click)="navegar('libros')" 
+    [class.active-tab]="isActive('listado-libros')">
+    <ion-icon name="library-outline"></ion-icon>
+    <ion-label>Libros</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button 
+    (click)="navegar('personajes')" 
+    [class.active-tab]="isActive('listado-personajes')">
+    <ion-icon name="people-outline"></ion-icon>
+    <ion-label>Personajes</ion-label>
+    
+  </ion-tab-button>
+
+  <ion-tab-button 
+    (click)="navegar('mundos')" 
+    [class.active-tab]="isActive('listado-mundos')">
+    <ion-icon name="planet-outline"></ion-icon>
+    <ion-label>Mundos</ion-label>
+  </ion-tab-button>
+
+</ion-tab-bar>

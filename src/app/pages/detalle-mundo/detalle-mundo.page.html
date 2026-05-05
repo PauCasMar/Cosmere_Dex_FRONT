@@ -1,0 +1,101 @@
+<ion-header>
+  <app-cabecera titulo="Detalle del Mundo"></app-cabecera>
+</ion-header>
+
+<ion-content>
+
+  <div class="loading-container" *ngIf="cargando">
+    <ion-spinner name="crescent" color="warning"></ion-spinner>
+  </div>
+
+  <div *ngIf="!cargando && mundo">
+
+    <!-- Cabecera -->
+    <div class="cabecera-container">
+      <button class="btn-volver" (click)="volver()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </button>
+
+     <div class="planeta-imagen">
+  <img
+    *ngIf="mundo.imagen_url"
+    [src]="mundo.imagen_url"
+    [alt]="mundo.nombre" />
+  <ion-icon
+    *ngIf="!mundo.imagen_url"
+    name="planet-outline">
+  </ion-icon>
+</div>
+
+      <h1 class="nombre">{{ mundo.nombre }}</h1>
+    </div>
+
+    <!-- Descripción -->
+    <div class="seccion" *ngIf="mundo.descripcion">
+      <h2 class="seccion-titulo">
+        <ion-icon name="book-outline"></ion-icon>
+        DESCRIPCIÓN
+      </h2>
+      <p class="descripcion">{{ mundo.descripcion }}</p>
+    </div>
+
+    <!-- Libros del mundo -->
+    <div class="seccion" *ngIf="mundo.libros?.length">
+      <h2 class="seccion-titulo">
+        <ion-icon name="library-outline"></ion-icon>
+        LIBROS
+      </h2>
+      <div class="libros-lista">
+        <div
+          class="libro-item"
+          *ngFor="let libro of mundo.libros"
+          (click)="irALibro(libro.id_libro)">
+          <ion-icon name="book-outline" class="libro-icon"></ion-icon>
+          <div class="libro-info">
+            <span class="libro-titulo">{{ libro.titulo }}</span>
+            <span class="libro-meta" *ngIf="libro.anio_publicacion">
+              {{ libro.anio_publicacion }} · {{ libro.numero_paginas }} pág.
+            </span>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="arrow"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personajes del mundo -->
+    <div class="seccion" *ngIf="mundo.personajes?.length">
+      <h2 class="seccion-titulo">
+        <ion-icon name="people-outline"></ion-icon>
+        PERSONAJES
+      </h2>
+      <div class="personajes-lista">
+        <div
+          class="personaje-item"
+          *ngFor="let p of mundo.personajes"
+          (click)="irAPersonaje(p.id_personaje)">
+          <div
+            class="personaje-avatar"
+            [style.border-color]="getRolColor(p.rol) + '88'">
+            <img
+              *ngIf="p.imagen_url"
+              [src]="p.imagen_url"
+              [alt]="p.nombre"
+              (error)="onImageError($event)" />
+            <ion-icon
+              *ngIf="!p.imagen_url"
+              name="person-outline">
+            </ion-icon>
+          </div>
+          <span
+            class="personaje-nombre"
+            [style.color]="getRolColor(p.rol)">
+            {{ p.nombre }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="height: 80px;"></div>
+</ion-content>
